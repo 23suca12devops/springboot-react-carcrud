@@ -1,5 +1,5 @@
 Right command to initialise/record into sonar:
-mvn clean verify sonar:sonar -Dsonar.projectKey=carcrud-backend -Dsonar.organization=meow-programmer -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=2b6872be6f488b821a3b7decaaf98e74133c9fd5
+mvn clean verify sonar:sonar -Dsonar.projectKey=carcrud-backend -Dsonar.organization=meow-programmer -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=<token>
 
 You can run your Spring Boot backend to make sure it serves endpoints:
 
