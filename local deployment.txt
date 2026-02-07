@@ -1,0 +1,23 @@
+Local Run Instructions:
+
+Clone the repo:
+
+git clone https://github.com/meow-programmer/springboot-react-carcrud.git
+cd springboot-react-carcrud
+
+
+Start backend (Spring Boot):
+
+cd carcrud
+./mvnw spring-boot:run
+
+
+Start frontend (React):
+
+cd ../frontend
+npm install
+npm start
+
+
+Open http://localhost:3000
+ to use the app.

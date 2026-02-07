@@ -1,4 +1,4 @@
-const API_URL = process.env.REACT_APP_API_BASE;
+const API_URL = "http://localhost:8080/api/cars";
 
 export async function getCars() {
     const res = await fetch(API_URL);

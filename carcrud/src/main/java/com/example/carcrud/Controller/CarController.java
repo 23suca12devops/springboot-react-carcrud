@@ -1,13 +1,15 @@
 package com.example.carcrud.Controller;
 
 import java.util.List;
+
 import org.springframework.web.bind.annotation.*;
 import com.example.carcrud.model.Car;
 import com.example.carcrud.service.CarService;
 
+
+@CrossOrigin(origins = {"http://localhost:3000", "https://carcrud-app.vercel.app"})
 @RestController
 @RequestMapping("/api/cars")
-@CrossOrigin(origins = "http://localhost:3000")
 public class CarController {
 
     private final CarService service;
