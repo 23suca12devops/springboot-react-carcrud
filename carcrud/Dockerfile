@@ -1,4 +1,4 @@
-# -------- FRONTEND BUILD --------
+ # -------- FRONTEND BUILD --------
 FROM node:18 AS frontend
 WORKDIR /app/frontend
 COPY ../frontend/package.json ../frontend/package-lock.json ./
