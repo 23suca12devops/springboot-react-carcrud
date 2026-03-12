@@ -24,7 +24,7 @@ jobs:
         java-version: '17'
 
     # ---- BACKEND BUILD & SONAR ANALYSIS ----
-    - name: Build and Analyze Backend
+    - name: Build and Analyze Backend along with sonarcloud
       run: |
         cd carcrud
         mvn clean verify sonar:sonar \
