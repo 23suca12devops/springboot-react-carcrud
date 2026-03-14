@@ -7,7 +7,10 @@ import com.example.carcrud.model.Car;
 import com.example.carcrud.service.CarService;
 
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {
+    "https://carcrud-app.vercel.app",
+    "http://localhost:3000"
+})
 @RestController
 @RequestMapping("/api/cars")
 public class CarController {
