@@ -1,8 +1,5 @@
-const PRIMARY_API =
-  process.env.REACT_APP_API_URL + "/api/cars";
-
-const FALLBACK_API =
-  process.env.REACT_APP_FALLBACK_API_URL + "/api/cars";
+const PRIMARY_API = (process.env.REACT_APP_API_URL || "http://localhost:8080") + "/api/cars";
+const FALLBACK_API = (process.env.REACT_APP_FALLBACK_API_URL || PRIMARY_API) + "/api/cars";
 
 async function fetchWithFallback(url, options = {}) {
   try {
@@ -10,8 +7,13 @@ async function fetchWithFallback(url, options = {}) {
     if (!res.ok) throw new Error("Primary API failed");
     return await res.json();
   } catch (err) {
-    const res = await fetch(FALLBACK_API, options);
-    return await res.json();
+    if (url !== FALLBACK_API) {
+      console.warn("Primary API failed, trying fallback API");
+      const res = await fetch(FALLBACK_API, options);
+      return await res.json();
+    } else {
+      throw err;
+    }
   }
 }
 
