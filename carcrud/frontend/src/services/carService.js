@@ -1,5 +1,5 @@
-const PRIMARY_API = process.env.REACT_APP_API_URL + "/api/cars";
-const FALLBACK_API = (process.env.REACT_APP_FALLBACK_API_URL || PRIMARY_API) + "/api/cars";
+const PRIMARY_API = process.env.REACT_APP_API_URL 
+const FALLBACK_API = (process.env.REACT_APP_FALLBACK_API_URL || PRIMARY_API) 
 
 async function fetchWithFallback(url, options = {}) {
   try {
