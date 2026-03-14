@@ -1,8 +1,5 @@
-// Primary API: local dev or Azure on Vercel
-const PRIMARY_API = (process.env.REACT_APP_API_URL || process.env.REACT_APP_AZURE_API_URL) + "/api/cars";
-
-// Optional fallback API (Render)
-const FALLBACK_API = (process.env.REACT_APP_FALLBACK_API_URL || PRIMARY_API) + "/api/cars";
+// base URL only, no /api/cars
+const PRIMARY_API = process.env.REACT_APP_API_URL || "http://localhost:8080";
 
 // Utility function to fetch with fallback
 async function fetchWithFallback(url, options = {}) {
@@ -35,7 +32,7 @@ async function fetchWithFallback(url, options = {}) {
 
 // API functions
 export async function getCars() {
-  return fetchWithFallback(PRIMARY_API);
+  return fetchWithFallback(`${PRIMARY_API}/api/cars`);
 }
 
 export async function getCar(id) {
