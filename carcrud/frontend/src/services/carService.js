@@ -1,33 +1,46 @@
-const API_URL = "http://localhost:8080/api/cars";
+const PRIMARY_API =
+  process.env.REACT_APP_API_URL + "/api/cars";
+
+const FALLBACK_API =
+  "https://your-render-backend.onrender.com/api/cars";
+
+async function fetchWithFallback(url, options = {}) {
+  try {
+    const res = await fetch(url, options);
+    if (!res.ok) throw new Error("Primary API failed");
+    return await res.json();
+  } catch (err) {
+    const res = await fetch(FALLBACK_API, options);
+    return await res.json();
+  }
+}
 
 export async function getCars() {
-    const res = await fetch(API_URL);
-    return res.json();
+  return fetchWithFallback(PRIMARY_API);
 }
 
 export async function getCar(id) {
-    const res = await fetch(`${API_URL}/${id}`);
-    return res.json();
+  return fetchWithFallback(`${PRIMARY_API}/${id}`);
 }
 
 export async function addCar(car) {
-    const res = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(car),
-    });
-    return res.json();
+  return fetchWithFallback(PRIMARY_API, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(car),
+  });
 }
 
 export async function updateCar(id, car) {
-    const res = await fetch(`${API_URL}/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(car),
-    });
-    return res.json();
+  return fetchWithFallback(`${PRIMARY_API}/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(car),
+  });
 }
 
 export async function deleteCar(id) {
-    await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+  await fetchWithFallback(`${PRIMARY_API}/${id}`, {
+    method: "DELETE",
+  });
 }
