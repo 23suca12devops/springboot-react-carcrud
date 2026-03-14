@@ -1,22 +1,39 @@
-const PRIMARY_API = process.env.REACT_APP_API_URL 
-const FALLBACK_API = (process.env.REACT_APP_FALLBACK_API_URL || PRIMARY_API) 
+// Primary API: local dev or Azure on Vercel
+const PRIMARY_API = (process.env.REACT_APP_API_URL || process.env.REACT_APP_AZURE_API_URL) + "/api/cars";
 
+// Optional fallback API (Render)
+const FALLBACK_API = (process.env.REACT_APP_FALLBACK_API_URL || PRIMARY_API) + "/api/cars";
+
+// Utility function to fetch with fallback
 async function fetchWithFallback(url, options = {}) {
   try {
     const res = await fetch(url, options);
-    if (!res.ok) throw new Error("Primary API failed");
-    return await res.json();
+
+    // handle non-200 responses
+    if (!res.ok) {
+      const text = await res.text();  // capture raw text for debugging
+      console.error("Non-OK response from backend:", url, text);
+      throw new Error(`Request failed: ${res.status}`);
+    }
+
+    const text = await res.text();
+    try {
+      return JSON.parse(text);
+    } catch {
+      console.error("Backend returned invalid JSON:", text);
+      throw new Error("Backend did not return valid JSON");
+    }
   } catch (err) {
     if (url !== FALLBACK_API) {
       console.warn("Primary API failed, trying fallback API");
-      const res = await fetch(FALLBACK_API, options);
-      return await res.json();
+      return fetchWithFallback(FALLBACK_API, options);
     } else {
       throw err;
     }
   }
 }
 
+// API functions
 export async function getCars() {
   return fetchWithFallback(PRIMARY_API);
 }
@@ -42,7 +59,7 @@ export async function updateCar(id, car) {
 }
 
 export async function deleteCar(id) {
-  await fetchWithFallback(`${PRIMARY_API}/${id}`, {
+  return fetchWithFallback(`${PRIMARY_API}/${id}`, {
     method: "DELETE",
   });
 }
