@@ -1,4 +1,4 @@
-package com.example.carcrud.Controller;
+package com.example.carcrud.controller;
 
 import java.util.List;
 
