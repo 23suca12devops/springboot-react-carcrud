@@ -2,6 +2,7 @@ const PRIMARY_API = process.env.REACT_APP_API_URL;
 
 async function fetchApi(url, options = {}) {
   const res = await fetch(url, options);
+  if (!res.ok) throw new Error("Request failed");
   return res.json();
 }
 
