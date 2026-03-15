@@ -1,7 +1,5 @@
 package com.example.carcrud.controller;
-
 import java.util.List;
-
 import org.springframework.web.bind.annotation.*;
 import com.example.carcrud.model.Car;
 import com.example.carcrud.service.CarService;
