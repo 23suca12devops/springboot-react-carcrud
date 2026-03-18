@@ -1,4 +1,4 @@
-const PRIMARY_API = process.env.REACT_APP_API_URL;
+const API = "/api/cars";
 
 async function fetchApi(url, options = {}) {
   const res = await fetch(url, options);
@@ -7,15 +7,15 @@ async function fetchApi(url, options = {}) {
 }
 
 export async function getCars() {
-  return fetchApi(`${PRIMARY_API}/api/cars`);
+  return fetchApi(API);
 }
 
 export async function getCar(id) {
-  return fetchApi(`${PRIMARY_API}/api/cars/${id}`);
+  return fetchApi(`${API}/${id}`);
 }
 
 export async function addCar(car) {
-  return fetchApi(`${PRIMARY_API}/api/cars`, {
+  return fetchApi(API, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(car),
@@ -23,7 +23,7 @@ export async function addCar(car) {
 }
 
 export async function updateCar(id, car) {
-  return fetchApi(`${PRIMARY_API}/api/cars/${id}`, {
+  return fetchApi(`${API}/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(car),
@@ -31,5 +31,5 @@ export async function updateCar(id, car) {
 }
 
 export async function deleteCar(id) {
-  await fetchApi(`${PRIMARY_API}/api/cars/${id}`, { method: "DELETE" });
+  await fetchApi(`${API}/${id}`, { method: "DELETE" });
 }
