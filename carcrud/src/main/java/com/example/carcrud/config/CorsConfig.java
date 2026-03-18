@@ -12,7 +12,7 @@ public class CorsConfig {
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
-            public void addCorsMappings(@org.springframework.lang.NonNull CorsRegistry registry) {
+            public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOriginPatterns("http://localhost:3000", "https://carcrud-app.vercel.app")
                         .allowedMethods("GET", "POST", "PUT", "DELETE")

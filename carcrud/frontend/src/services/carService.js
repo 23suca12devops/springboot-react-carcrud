@@ -1,4 +1,4 @@
-const API = "/api/cars";
+const API = "https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net/api/cars";
 
 async function fetchApi(url, options = {}) {
   const res = await fetch(url, options);
@@ -7,6 +7,7 @@ async function fetchApi(url, options = {}) {
 }
 
 export async function getCars() {
+
   return fetchApi(API);
 }
 
