@@ -1,4 +1,4 @@
-package com.example.carcrud.controller;
+package com.example.carcrud.Controller;
 import java.util.List;
 import org.springframework.web.bind.annotation.*;
 import com.example.carcrud.model.Car;
@@ -14,7 +14,6 @@ import com.example.carcrud.service.CarService;
 public class CarController {
 
     private final CarService service;
-
     public CarController(CarService service) {
         this.service = service;
     }
