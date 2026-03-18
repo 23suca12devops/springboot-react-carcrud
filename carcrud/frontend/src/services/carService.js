@@ -1,4 +1,3 @@
-const PRIMARY_API = '/api'; // points to your Vercel proxy
 const PRIMARY_API = process.env.REACT_APP_API_URL;
 
 async function fetchApi(url, options = {}) {
