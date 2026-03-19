@@ -21,7 +21,7 @@ public class CarDTO {
         this.resalePrice = resalePrice;
     }
 
-    // Getters and setters for all fields
+    // Getters and Setters for all fields
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
