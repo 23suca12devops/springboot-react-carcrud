@@ -3,9 +3,11 @@ package com.example.carcrud.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
-import com.example.carcrud.dto.CarDTO;
+import com.example.carcrud.dto.CarRequestDTO;
+import com.example.carcrud.dto.CarResponseDTO;
 import com.example.carcrud.model.Car;
 import com.example.carcrud.service.CarService;
+
 @RestController
 @RequestMapping("/api/cars")
 public class CarController {
@@ -16,51 +18,23 @@ public class CarController {
         this.service = service;
     }
 
-    // Convert entity list to DTO list using Stream.toList()
-    @GetMapping
-    public List<CarDTO> getCars() {
-        return service.getAll()
-                .stream()
-                .map(car -> new CarDTO(
-    car.getId(),
-    car.getModel(),
-    car.getBrand(),
-    car.getYear(),
-    car.getEngine(),
-    car.getPrice(),
-    car.getResalePrice()
-))
-                .toList(); // <- replaced collect(Collectors.toList()) with toList()
-    }
-
-    @GetMapping("/{id}")
-    public CarDTO getCar(@PathVariable Long id) {
-        Car car = service.getById(id);
-        return new CarDTO(
-            car.getId(),
-            car.getModel(),
-            car.getBrand(),
-            car.getYear(),
-            car.getEngine(),
-            car.getPrice(),
-            car.getResalePrice()
-        );
-    }
-
+    // Add a new car
     @PostMapping
-    public CarDTO addCar(@RequestBody CarDTO dto) {
+    public CarResponseDTO addCar(@RequestBody CarRequestDTO dto) {
         Car car = new Car();
-        car.setModel(dto.getModel());
         car.setBrand(dto.getBrand());
+        car.setModel(dto.getModel());
         car.setYear(dto.getYear());
         car.setEngine(dto.getEngine());
         car.setPrice(dto.getPrice());
         car.setResalePrice(dto.getResalePrice());
+
         Car saved = service.save(car);
-        return new CarDTO(
+
+        return new CarResponseDTO(
             saved.getId(),
-            saved.getModel(),
             saved.getBrand(),
+            saved.getModel(),
             saved.getYear(),
             saved.getEngine(),
             saved.getPrice(),
@@ -68,20 +42,23 @@ public class CarController {
         );
     }
 
+    // Update an existing car
     @PutMapping("/{id}")
-    public CarDTO updateCar(@PathVariable Long id, @RequestBody CarDTO dto) {
+    public CarResponseDTO updateCar(@PathVariable Long id, @RequestBody CarRequestDTO dto) {
         Car car = new Car();
-        car.setModel(dto.getModel());
         car.setBrand(dto.getBrand());
+        car.setModel(dto.getModel());
         car.setYear(dto.getYear());
         car.setEngine(dto.getEngine());
         car.setPrice(dto.getPrice());
         car.setResalePrice(dto.getResalePrice());
+
         Car updated = service.update(id, car);
-        return new CarDTO(
+
+        return new CarResponseDTO(
             updated.getId(),
-            updated.getModel(),
             updated.getBrand(),
+            updated.getModel(),
             updated.getYear(),
             updated.getEngine(),
             updated.getPrice(),
@@ -89,6 +66,38 @@ public class CarController {
         );
     }
 
+    // Get all cars
+    @GetMapping
+    public List<CarResponseDTO> getCars() {
+        return service.getAll().stream()
+            .map(car -> new CarResponseDTO(
+                car.getId(),
+                car.getBrand(),
+                car.getModel(),
+                car.getYear(),
+                car.getEngine(),
+                car.getPrice(),
+                car.getResalePrice()
+            ))
+            .toList();
+    }
+
+    // Get a car by ID
+    @GetMapping("/{id}")
+    public CarResponseDTO getCar(@PathVariable Long id) {
+        Car car = service.getById(id);
+        return new CarResponseDTO(
+            car.getId(),
+            car.getBrand(),
+            car.getModel(),
+            car.getYear(),
+            car.getEngine(),
+            car.getPrice(),
+            car.getResalePrice()
+        );
+    }
+
+    // Delete a car by ID
     @DeleteMapping("/{id}")
     public void deleteCar(@PathVariable Long id) {
         service.delete(id);
