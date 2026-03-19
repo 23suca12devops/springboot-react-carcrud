@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Car {
@@ -21,6 +22,8 @@ public class Car {
 
     private String engine;
     private double price;
+
+    @Column(name = "resale_price")
     private double resalePrice;
 
     // constructors, getters, setters ...
