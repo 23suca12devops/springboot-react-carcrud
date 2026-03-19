@@ -11,8 +11,7 @@ public class CarDTO {
 
     public CarDTO() {}
 
-    public CarDTO(Long id, String model, String brand, int year,
-                  String engine, double price, double resalePrice) {
+    public CarDTO(Long id, String model, String brand, int year, String engine, double price, double resalePrice) {
         this.id = id;
         this.model = model;
         this.brand = brand;
@@ -22,7 +21,7 @@ public class CarDTO {
         this.resalePrice = resalePrice;
     }
 
-    // getters & setters
+    // Getters and setters for all fields
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

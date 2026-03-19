@@ -7,7 +7,6 @@ async function fetchApi(url, options = {}) {
 }
 
 export async function getCars() {
-
   return fetchApi(API);
 }
 
