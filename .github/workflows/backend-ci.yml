@@ -1,58 +1,32 @@
-name: Full CI Pipeline
+name: Backend CI
 
 on:
   push:
-    branches: [ main ]
+    paths:
+      - 'carcrud/**'
   pull_request:
-    branches: [ main ]
+    paths:
+      - 'carcrud/**'
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
-    # ---- JAVA SETUP ----
-    - name: Setup Java
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '17'
-
-    # ---- BACKEND BUILD & SONAR ANALYSIS ----
-    - name: Build and Analyze Backend with SonarCloud
-      working-directory: ./carcrud
-      run: |
-        mvn clean verify sonar:sonar \
-        -Dsonar.projectKey=23suca12devops \
-        -Dsonar.organization=23suca12devops-org \
-        -Dsonar.host.url=https://sonarcloud.io \
-        -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-
-    # ---- NODE SETUP ----
-    - name: Setup Node
-      uses: actions/setup-node@v4
-      with:
-        node-version: 18
-
-    # ---- FRONTEND BUILD ----
-    - name: Install frontend dependencies
-      run: |
-        cd frontend
-        npm install
-
-    - name: Build React frontend
-      run: |
-        cd frontend
-        npm run build
-
-    # ---- DOCKER BUILD ----  
-    - name: Build backend Docker image
-      run: docker build -t carcrud-backend ./carcrud
- 
-    - name: Build frontend Docker image
-      run: docker build -t carcrud-frontend ./carcrud/frontend
+      - name: Build + SonarCloud
+        working-directory: ./carcrud
+        run: |
+          mvn clean verify sonar:sonar \
+          -Dsonar.projectKey=23suca12devops \
+          -Dsonar.organization=23suca12devops-org \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
