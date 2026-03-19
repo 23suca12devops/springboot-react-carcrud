@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { addCar, updateCar } from "../services/carService";
+import PropTypes from "prop-types";
 
 function CarForm({ onSave, editingCar }) {
     const [car, setCar] = useState({
@@ -29,9 +30,9 @@ function CarForm({ onSave, editingCar }) {
 
         const carToSend = {
             ...car,
-            year: parseInt(car.year),
-            price: parseFloat(car.price),
-            resalePrice: parseFloat(car.resalePrice)
+            year: Number.parseInt(car.year, 10),
+            price: Number.parseFloat(car.price),
+            resalePrice: Number.parseFloat(car.resalePrice)
         };
 
         let savedCar;
@@ -57,5 +58,18 @@ function CarForm({ onSave, editingCar }) {
         </form>
     );
 }
+
+CarForm.propTypes = {
+    onSave: PropTypes.func.isRequired,
+    editingCar: PropTypes.shape({
+        id: PropTypes.number,
+        brand: PropTypes.string,
+        model: PropTypes.string,
+        year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        engine: PropTypes.string,
+        price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        resalePrice: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    })
+};
 
 export default CarForm;

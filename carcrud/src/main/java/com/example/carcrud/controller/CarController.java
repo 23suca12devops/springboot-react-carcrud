@@ -21,14 +21,30 @@ public class CarController {
     public List<CarDTO> getCars() {
         return service.getAll()
                 .stream()
-                .map(car -> new CarDTO(car.getId(), car.getModel(), car.getBrand(), car.getYear()))
+                .map(car -> new CarDTO(
+    car.getId(),
+    car.getModel(),
+    car.getBrand(),
+    car.getYear(),
+    car.getEngine(),
+    car.getPrice(),
+    car.getResalePrice()
+))
                 .toList(); // <- replaced collect(Collectors.toList()) with toList()
     }
 
     @GetMapping("/{id}")
     public CarDTO getCar(@PathVariable Long id) {
         Car car = service.getById(id);
-        return new CarDTO(car.getId(), car.getModel(), car.getBrand(), car.getYear());
+        return new CarDTO(
+            car.getId(),
+            car.getModel(),
+            car.getBrand(),
+            car.getYear(),
+            car.getEngine(),
+            car.getPrice(),
+            car.getResalePrice()
+        );
     }
 
     @PostMapping
@@ -37,8 +53,19 @@ public class CarController {
         car.setModel(dto.getModel());
         car.setBrand(dto.getBrand());
         car.setYear(dto.getYear());
+        car.setEngine(dto.getEngine());
+        car.setPrice(dto.getPrice());
+        car.setResalePrice(dto.getResalePrice());
         Car saved = service.save(car);
-        return new CarDTO(saved.getId(), saved.getModel(), saved.getBrand(), saved.getYear());
+        return new CarDTO(
+            saved.getId(),
+            saved.getModel(),
+            saved.getBrand(),
+            saved.getYear(),
+            saved.getEngine(),
+            saved.getPrice(),
+            saved.getResalePrice()
+        );
     }
 
     @PutMapping("/{id}")
@@ -47,8 +74,19 @@ public class CarController {
         car.setModel(dto.getModel());
         car.setBrand(dto.getBrand());
         car.setYear(dto.getYear());
+        car.setEngine(dto.getEngine());
+        car.setPrice(dto.getPrice());
+        car.setResalePrice(dto.getResalePrice());
         Car updated = service.update(id, car);
-        return new CarDTO(updated.getId(), updated.getModel(), updated.getBrand(), updated.getYear());
+        return new CarDTO(
+            updated.getId(),
+            updated.getModel(),
+            updated.getBrand(),
+            updated.getYear(),
+            updated.getEngine(),
+            updated.getPrice(),
+            updated.getResalePrice()
+        );
     }
 
     @DeleteMapping("/{id}")
