@@ -1,7 +1,6 @@
 package com.example.carcrud.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.*;
 import com.example.carcrud.dto.CarDTO;
@@ -22,13 +21,13 @@ public class CarController {
         this.service = service;
     }
 
-    // Convert entity list to DTO list
+    // Convert entity list to DTO list using Stream.toList()
     @GetMapping
     public List<CarDTO> getCars() {
         return service.getAll()
                 .stream()
                 .map(car -> new CarDTO(car.getId(), car.getModel(), car.getBrand(), car.getYear()))
-                .collect(Collectors.toList());
+                .toList(); // <- replaced collect(Collectors.toList()) with toList()
     }
 
     @GetMapping("/{id}")
