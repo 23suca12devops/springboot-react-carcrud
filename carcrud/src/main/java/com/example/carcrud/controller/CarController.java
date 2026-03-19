@@ -1,43 +1,60 @@
 package com.example.carcrud.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.web.bind.annotation.*;
+import com.example.carcrud.dto.CarDTO;
 import com.example.carcrud.model.Car;
 import com.example.carcrud.service.CarService;
 
-
 @CrossOrigin(origins = {
         "https://delightful-water-07fdd0c00.1.azurestaticapps.net",
-        "http://localhost:3000",
+        "http://localhost:3000"
 })
-
 @RestController
 @RequestMapping("/api/cars")
 public class CarController {
 
     private final CarService service;
+
     public CarController(CarService service) {
         this.service = service;
     }
 
+    // Convert entity list to DTO list
     @GetMapping
-    public List<Car> getCars() {
-        return service.getAll();
+    public List<CarDTO> getCars() {
+        return service.getAll()
+                .stream()
+                .map(car -> new CarDTO(car.getId(), car.getModel(), car.getBrand(), car.getYear()))
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public Car getCar(@PathVariable Long id) {
-        return service.getById(id);
+    public CarDTO getCar(@PathVariable Long id) {
+        Car car = service.getById(id);
+        return new CarDTO(car.getId(), car.getModel(), car.getBrand(), car.getYear());
     }
 
     @PostMapping
-    public Car addCar(@RequestBody Car car) {
-        return service.save(car);
+    public CarDTO addCar(@RequestBody CarDTO dto) {
+        Car car = new Car();
+        car.setModel(dto.getModel());
+        car.setBrand(dto.getBrand());
+        car.setYear(dto.getYear());
+        Car saved = service.save(car);
+        return new CarDTO(saved.getId(), saved.getModel(), saved.getBrand(), saved.getYear());
     }
 
     @PutMapping("/{id}")
-    public Car updateCar(@PathVariable Long id, @RequestBody Car car) {
-        return service.update(id, car);
+    public CarDTO updateCar(@PathVariable Long id, @RequestBody CarDTO dto) {
+        Car car = new Car();
+        car.setModel(dto.getModel());
+        car.setBrand(dto.getBrand());
+        car.setYear(dto.getYear());
+        Car updated = service.update(id, car);
+        return new CarDTO(updated.getId(), updated.getModel(), updated.getBrand(), updated.getYear());
     }
 
     @DeleteMapping("/{id}")
