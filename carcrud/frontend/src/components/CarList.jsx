@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import CarForm from "./CarForm";
 
 function CarList({ cars, onDelete, onUpdate }) {
@@ -36,5 +37,19 @@ function CarList({ cars, onDelete, onUpdate }) {
         </ul>
     );
 }
+
+CarList.propTypes = {
+    cars: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        brand: PropTypes.string,
+        model: PropTypes.string,
+        year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        engine: PropTypes.string,
+        price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        resalePrice: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    })).isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onUpdate: PropTypes.func.isRequired
+};
 
 export default CarList;
