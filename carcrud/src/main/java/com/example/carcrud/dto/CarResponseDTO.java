@@ -7,12 +7,12 @@ public class CarResponseDTO {
     private String model;
     private int year;
     private String engine;
-    private double price;
-    private double resalePrice;
+    private Double price;
+    private Double resalePrice;
 
     public CarResponseDTO() {}
 
-    public CarResponseDTO(Long id, String brand, String model, int year, String engine, double price, double resalePrice) {
+    public CarResponseDTO(Long id, String brand, String model, int year, String engine, Double price, Double resalePrice) {
         this.id = id;
         this.brand = brand;
         this.model = model;

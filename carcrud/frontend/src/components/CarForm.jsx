@@ -27,21 +27,25 @@ function CarForm({ onSave, editingCar }) {
 
     async function submit(e) {
         e.preventDefault();
-
+    
         const carToSend = {
-            ...car,
-            year: Number.parseInt(car.year, 10),
-            price: Number.parseFloat(car.price),
-            resalePrice: Number.parseFloat(car.resalePrice)
+            brand: car.brand || "",
+            model: car.model || "",
+            year: Number.parseInt(car.year || 0, 10),
+            engine: car.engine || "",
+            price: Number.parseFloat(car.price) || 0,
+            resalePrice: Number.parseFloat(car.resalePrice) || 0
         };
-
+    
+        console.log("Sending car:", carToSend); // <-- verify payload
+    
         let savedCar;
         if (editingCar) {
             savedCar = await updateCar(editingCar.id, carToSend);
         } else {
             savedCar = await addCar(carToSend);
         }
-
+    
         onSave(savedCar);
         setCar({ brand: "", model: "", year: "", engine: "", price: "", resalePrice: "" });
     }

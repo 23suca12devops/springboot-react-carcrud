@@ -23,7 +23,6 @@
     </properties>
 
     <dependencies>
-
         <!-- Web (includes REST + embedded server + MVC) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

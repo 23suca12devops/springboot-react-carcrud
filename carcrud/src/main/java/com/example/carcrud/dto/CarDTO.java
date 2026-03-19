@@ -6,12 +6,12 @@ public class CarDTO {
     private String brand;
     private int year;
     private String engine;
-    private double price;
-    private double resalePrice;
+    private Double price;
+    private Double resalePrice;
 
     public CarDTO() {}
 
-    public CarDTO(Long id, String model, String brand, int year, String engine, double price, double resalePrice) {
+    public CarDTO(Long id, String model, String brand, int year, String engine, Double price, Double resalePrice) {
         this.id = id;
         this.model = model;
         this.brand = brand;
