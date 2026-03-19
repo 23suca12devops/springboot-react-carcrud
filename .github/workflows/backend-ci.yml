@@ -24,14 +24,13 @@ jobs:
         java-version: '17'
 
     # ---- BACKEND BUILD & SONAR ANALYSIS ----
-    - name: Build and Analyze Backend along with sonarcloud
-      run: |
-        cd carcrud
-        mvn clean verify sonar:sonar \
-          -Dsonar.projectKey=23suca12devops \
-          -Dsonar.organization=23suca12devops-org \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+    - name: Build and Analyze Backend along with SonarCloud
+      working-directory: ./carcrud
+      run: mvn clean verify sonar:sonar \
+            -Dsonar.projectKey=23suca12devops \
+            -Dsonar.organization=23suca12devops-org \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
     # ---- NODE SETUP ----
     - name: Setup Node
@@ -50,6 +49,6 @@ jobs:
         cd frontend
         npm run build
 
-    # ---- DOCKER BUILD ----
+    # ---- DOCKER BUILD ----  
     - name: Build Docker image
-      run: docker build -t carcrud-app .
+      run: docker build -t carcrud-app .  
