@@ -6,11 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import com.example.carcrud.dto.CarDTO;
 import com.example.carcrud.model.Car;
 import com.example.carcrud.service.CarService;
-
-@CrossOrigin(origins = {
-        "https://delightful-water-07fdd0c00.1.azurestaticapps.net",
-        "http://localhost:3000"
-})
 @RestController
 @RequestMapping("/api/cars")
 public class CarController {
