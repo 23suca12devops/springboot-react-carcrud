@@ -19,18 +19,16 @@ function CarList({ cars, onDelete, onUpdate }) {
                         />
                     ) : (
                         <>
-                            <>
-                                {car.brand || "?"} {car.model || "?"}
-                                ({car.year || "?"}, {car.engine || "?"})
-                                - ${car.price ?? 0}
-                                (Resale: ${car.resalePrice ?? 0})
-                                <button onClick={() => setEditingCarId(car.id)} style={{ marginLeft: "0.5rem" }}>
-                                    Edit
-                                </button>
-                                <button onClick={() => onDelete(car.id)} style={{ marginLeft: "0.5rem" }}>
-                                    X
-                                </button>
-                            </>
+                            {car.brand || "?"} {car.model || "?"}
+                            ({car.year || "?"}, {car.engine || "?"})
+                            - ${car.price ?? 0}
+                            (Resale: ${car.resalePrice ?? 0})
+                            <button onClick={() => setEditingCarId(car.id)} style={{ marginLeft: "0.5rem" }}>
+                                Edit
+                            </button>
+                            <button onClick={() => onDelete(car.id)} style={{ marginLeft: "0.5rem" }}>
+                                X
+                            </button>
                         </>
                     )}
                 </li>
