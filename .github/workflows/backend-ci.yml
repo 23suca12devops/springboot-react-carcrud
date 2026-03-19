@@ -50,5 +50,8 @@ jobs:
         npm run build
 
     # ---- DOCKER BUILD ----  
-    - name: Build Docker image
-      run: docker build -t carcrud-app .  
+    - name: Build backend Docker image
+      run: docker build -t carcrud-backend ./carcrud
+ 
+    - name: Build frontend Docker image
+      run: docker build -t carcrud-frontend ./carcrud/frontend
