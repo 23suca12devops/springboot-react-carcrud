@@ -4,6 +4,8 @@ async function fetchApi(url, options = {}) {
   try {
     const res = await fetch(url, options);
     if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+    // Return empty object for 204 No Content responses
+    if (res.status === 204) return {};
     return res.json();
   } catch(e) {
     console.error("API fetch failed:", e);
@@ -36,5 +38,5 @@ export async function updateCar(id, car) {
 }
 
 export async function deleteCar(id) {
-  await fetchApi(`${API}/${id}`, { method: "DELETE" });
+  return await fetchApi(`${API}/${id}`, { method: "DELETE" });
 }
