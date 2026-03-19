@@ -22,7 +22,7 @@ export async function getCar(id) {
 }
 
 export async function addCar(car) {
-  return fetchApi(API, {
+  return fetch(API, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(car),
@@ -30,7 +30,7 @@ export async function addCar(car) {
 }
 
 export async function updateCar(id, car) {
-  return fetchApi(`${API}/${id}`, {
+  return fetch(`${API}/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(car),

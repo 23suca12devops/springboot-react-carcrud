@@ -27,8 +27,12 @@ function App() {
     }
 
     async function handleDelete(id) {
-        await deleteCar(id);
-        setCars(prev => prev.filter(c => c.id !== id));
+        try {
+            await deleteCar(id); // don’t call .json()
+            setCars(prev => prev.filter(c => c.id !== id));
+        } catch(e) {
+            console.error("Delete failed:", e);
+        }
     }
 
     return (

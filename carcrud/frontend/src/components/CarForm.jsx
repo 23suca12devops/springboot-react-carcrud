@@ -17,10 +17,10 @@ function CarForm({ onSave, editingCar }) {
             setCar({
                 brand: editingCar.brand ?? "",
                 model: editingCar.model ?? "",
-                year: editingCar.year ?? "",
+                year: editingCar.year ? editingCar.year.toString() : "",
                 engine: editingCar.engine ?? "",
-                price: editingCar.price ?? "",
-                resalePrice: editingCar.resalePrice ?? ""
+                price: editingCar.price ? editingCar.price.toString() : "",
+                resalePrice: editingCar.resalePrice ? editingCar.resalePrice.toString() : ""
             });
         }
     }, [editingCar]);

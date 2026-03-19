@@ -2,6 +2,7 @@ package com.example.carcrud.controller;
 
 import java.util.List;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.bind.annotation.*;
 import com.example.carcrud.dto.CarRequestDTO;
@@ -80,16 +81,20 @@ public class CarController {
     // PUT to update an existing car
     @PutMapping("/{id}")
     public CarResponseDTO updateCar(@PathVariable Long id, @RequestBody CarRequestDTO dto) {
-        Car car = new Car();
-        car.setBrand(dto.getBrand());
-        car.setModel(dto.getModel());
-        car.setYear(dto.getYear());
-        car.setEngine(dto.getEngine());
-        car.setPrice(dto.getPrice());
-        car.setResalePrice(dto.getResalePrice());
-
-        Car updated = service.update(id, car);
-
+        Car existingCar = service.getById(id);
+        if (existingCar == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Car not found with ID: " + id);
+        }
+    
+        existingCar.setBrand(dto.getBrand());
+        existingCar.setModel(dto.getModel());
+        existingCar.setYear(dto.getYear());
+        existingCar.setEngine(dto.getEngine());
+        existingCar.setPrice(dto.getPrice());
+        existingCar.setResalePrice(dto.getResalePrice());
+    
+        Car updated = service.save(existingCar);
+    
         return new CarResponseDTO(
                 updated.getId(),
                 updated.getBrand(),
@@ -103,7 +108,8 @@ public class CarController {
 
     // DELETE a car
     @DeleteMapping("/{id}")
-    public void deleteCar(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteCar(@PathVariable Long id) {
         service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
