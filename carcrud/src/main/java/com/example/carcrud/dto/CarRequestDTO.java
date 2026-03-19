@@ -8,7 +8,9 @@ public class CarRequestDTO {
     private double price;
     private double resalePrice;
 
-    public CarRequestDTO() {}
+    public CarRequestDTO() {
+        // Default constructor
+    }
     // Getters and setters
     public String getBrand() { return brand; }
     public void setBrand(String brand) { this.brand = brand; }
