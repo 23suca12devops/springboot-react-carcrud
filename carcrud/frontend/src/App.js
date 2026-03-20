@@ -1,70 +1,68 @@
-import { useEffect, useState } from "react";
-import CarForm from "./components/CarForm";
-import CarList from "./components/CarList";
-import { getCars, addCar, deleteCar } from "./services/carService"; // <-- no normalizeCar here
+import React, { useEffect, useState } from "react";
+import CarForm from "./CarForm";
+import { getCars, addCar, deleteCar } from "./carService";
 
 function App() {
   const [cars, setCars] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Load cars from backend
-  async function loadCars() {
+  const loadCars = async () => {
+    setLoading(true);
     try {
-      const data = await getCars(); // already normalized
+      const data = await getCars();
       setCars(data);
     } catch (err) {
       console.error("Error loading cars:", err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-  }
+  };
+
+  const handleSave = async (car) => {
+    try {
+      const savedCar = await addCar(car);
+      setCars((prev) => [...prev, savedCar]);
+    } catch (err) {
+      console.error("Error saving car:", err);
+      setError(err.message);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteCar(id);
+      setCars((prev) => prev.filter((car) => car.id !== id));
+    } catch (err) {
+      console.error("Error deleting car:", err);
+      setError(err.message);
+    }
+  };
 
   useEffect(() => {
     loadCars();
   }, []);
 
-  // Add new car
-  async function handleSave(car) {
-    try {
-      const saved = await addCar(car); // already normalized
-      console.log("Saved from backend:", saved);
-      setCars(prev => [...prev, saved]);
-    } catch (err) {
-      console.error("Error saving car:", err);
-    }
-  }
-
-  // Delete car
-  async function handleDelete(id) {
-    try {
-      await deleteCar(id);
-      setCars(prev => prev.filter(c => c.id !== id));
-    } catch (err) {
-      console.error("Error deleting car:", err);
-    }
-  }
-
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>🚗 Car Manager</h1>
-
+    <div>
+      <h1>Car CRUD App</h1>
+      {error && <p style={{ color: "red" }}>{error}</p>}
       <CarForm onSave={handleSave} />
-
-      <CarList
-        cars={cars}
-        onDelete={handleDelete}
-      />
+      {loading ? (
+        <p>Loading cars...</p>
+      ) : (
+        <ul>
+          {cars.map((car) => (
+            <li key={car.id}>
+              {car.brand} {car.model} ({car.year}) - Engine: {car.engine} | Price: ${car.price} | Resale: ${car.resalePrice}
+              <button onClick={() => handleDelete(car.id)}>Delete</button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
-
-const styles = {
-  container: {
-    padding: "20px",
-    fontFamily: "Arial, sans-serif",
-    background: "#f5f5f5",
-    minHeight: "100vh"
-  },
-  title: {
-    marginBottom: "20px"
-  }
-};
 
 export default App;

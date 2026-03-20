@@ -1,37 +1,17 @@
-import { useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { useState } from "react";
 
-function CarForm({ onSave, editingCar }) {
-  const [car, setCar] = useState({
-    brand: "",
-    model: "",
-    year: "",
-    engine: "",
-    price: "",
-    resalePrice: ""
-  });
-
-  useEffect(() => {
-    if (editingCar) {
-      setCar({
-        brand: editingCar.brand,
-        model: editingCar.model,
-        year: editingCar.year.toString(),
-        engine: editingCar.engine,
-        price: editingCar.price.toString(),
-        resalePrice: editingCar.resalePrice.toString()
-      });
-    }
-  }, [editingCar]);
-
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setCar(prev => ({ ...prev, [name]: value }));
-  }
+export default function CarForm({ onSave }) {
+  const [brand, setBrand] = useState("");
+  const [model, setModel] = useState("");
+  const [year, setYear] = useState("");
+  const [engine, setEngine] = useState("");
+  const [price, setPrice] = useState("");
+  const [resalePrice, setResalePrice] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
+    // Prepare full payload
     const carData = {
       brand: brand || "",
       model: model || "",
@@ -40,33 +20,27 @@ function CarForm({ onSave, editingCar }) {
       price: parseFloat(price) || 0,
       resalePrice: parseFloat(resalePrice) || 0
     };
-  
+
     onSave(carData);
-  
-    // Optional: reset form
-    setBrand(""); setModel(""); setYear(""); setEngine(""); setPrice(""); setResalePrice("");
+
+    // Reset form
+    setBrand("");
+    setModel("");
+    setYear("");
+    setEngine("");
+    setPrice("");
+    setResalePrice("");
   };
 
   return (
-    <form onSubmit={handleSubmit} style={styles.form}>
-      <input name="brand" placeholder="Brand" value={car.brand} onChange={handleChange} />
-      <input name="model" placeholder="Model" value={car.model} onChange={handleChange} />
-      <input name="year" placeholder="Year" value={car.year} onChange={handleChange} />
-      <input name="engine" placeholder="Engine" value={car.engine} onChange={handleChange} />
-      <input name="price" placeholder="Price" value={car.price} onChange={handleChange} />
-      <input name="resalePrice" placeholder="Resale Price" value={car.resalePrice} onChange={handleChange} />
-      <button type="submit">{editingCar ? "Update" : "Add"} Car</button>
+    <form onSubmit={handleSubmit}>
+      <input placeholder="Brand" value={brand} onChange={(e) => setBrand(e.target.value)} />
+      <input placeholder="Model" value={model} onChange={(e) => setModel(e.target.value)} />
+      <input placeholder="Year" type="number" value={year} onChange={(e) => setYear(e.target.value)} />
+      <input placeholder="Engine" value={engine} onChange={(e) => setEngine(e.target.value)} />
+      <input placeholder="Price" type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
+      <input placeholder="Resale Price" type="number" value={resalePrice} onChange={(e) => setResalePrice(e.target.value)} />
+      <button type="submit">Add Car</button>
     </form>
   );
 }
-
-const styles = {
-  form: { display: "flex", flexDirection: "column", gap: "0.5rem", marginBottom: "1rem" }
-};
-
-CarForm.propTypes = {
-  onSave: PropTypes.func.isRequired,
-  editingCar: PropTypes.object
-};
-
-export default CarForm;
