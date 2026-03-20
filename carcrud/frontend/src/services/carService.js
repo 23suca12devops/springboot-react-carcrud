@@ -1,12 +1,16 @@
 // carService.js
+// Dynamically pick backend URL depending on frontend location
 
-const API_BASE = "https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net/api/cars";
+const API_BASE = window.location.hostname.includes("azurewebsites.net")
+  ? "https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net/api/cars"
+  : "http://localhost:8080/api/cars";
 
-console.log("API Base URL:", API_BASE);
+console.log("🚀 Frontend running on:", window.location.hostname);
+console.log("🔗 Using backend API:", API_BASE);
 
 // Fetch all cars
 export async function getCars() {
-  console.log("Fetching cars from:", API_BASE);
+  console.log("📡 Fetching cars from:", API_BASE);
   const res = await fetch(API_BASE);
   if (!res.ok) throw new Error("Fetch failed with status: " + res.status);
   const data = await res.json();
@@ -15,7 +19,7 @@ export async function getCars() {
 
 // Add a car
 export async function addCar(car) {
-  console.log("Adding car to:", API_BASE, "Payload:", car);
+  console.log("➕ Adding car to:", API_BASE, "Payload:", car);
   const res = await fetch(API_BASE, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -23,11 +27,13 @@ export async function addCar(car) {
   });
   if (!res.ok) throw new Error("Add failed with status: " + res.status);
   const saved = await res.json();
+  console.log("💾 Saved from backend:", saved);
   return normalizeCar(saved);
 }
 
 // Delete a car
 export async function deleteCar(id) {
+  console.log("🗑️ Deleting car ID:", id, "from:", API_BASE);
   const res = await fetch(`${API_BASE}/${id}`, { method: "DELETE" });
   if (!res.ok) throw new Error("Delete failed with status: " + res.status);
   return true;
