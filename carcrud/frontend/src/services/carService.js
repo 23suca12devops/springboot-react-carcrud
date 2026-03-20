@@ -1,13 +1,11 @@
 // carService.js
-
-// Use Azure backend in production, localhost only for local dev
 const BASE_URL = process.env.REACT_APP_API_URL;
 
-console.log("API Base URL:", BASE_URL); // fixed typo
+console.log("API Base URL:", BASE_URL);
 
 // Fetch all cars
 export async function getCars() {
-  console.log("Fetching cars from:", BASE_URL); // fixed typo
+  console.log("Fetching cars from:", BASE_URL);
   const res = await fetch(BASE_URL);
   if (!res.ok) throw new Error("Fetch failed with status: " + res.status);
   const data = await res.json();
@@ -16,7 +14,7 @@ export async function getCars() {
 
 // Add a car
 export async function addCar(car) {
-  console.log("Adding car to:", BASE_URL); // fixed typo
+  console.log("Adding car to:", BASE_URL);
   const res = await fetch(BASE_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -36,7 +34,7 @@ export async function addCar(car) {
 
 // Delete a car
 export async function deleteCar(id) {
-  const res = await fetch(`${BASE_URL}/${id}`, { method: "DELETE" }); // fixed typo
+  const res = await fetch(`${BASE_URL}/${id}`, { method: "DELETE" });
   if (!res.ok) throw new Error("Delete failed with status: " + res.status);
   return true;
 }
