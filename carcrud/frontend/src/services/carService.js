@@ -1,8 +1,9 @@
-// carService.js
-// Fully Azure-ready frontend service
+// src/carService.js
 
-// ✅ Hardcoded Azure backend for demo
-const API_BASE = "https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net/api/cars";
+// Detect if running on Azure frontend
+const API_BASE = window.location.hostname.includes("azurewebsites.net")
+  ? "https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net/api/cars"
+  : "https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net/api/cars"; // fallback is same for safety
 
 console.log("🚀 Frontend running on:", window.location.hostname);
 console.log("🔗 Using backend API:", API_BASE);
@@ -26,19 +27,18 @@ export async function addCar(car) {
   });
   if (!res.ok) throw new Error("Add failed with status: " + res.status);
   const saved = await res.json();
-  console.log("✅ Saved from backend:", saved);
+  console.log("💾 Saved from backend:", saved);
   return normalizeCar(saved);
 }
 
 // Delete a car by ID
 export async function deleteCar(id) {
-  console.log("🗑️ Deleting car ID:", id, "from:", API_BASE);
   const res = await fetch(`${API_BASE}/${id}`, { method: "DELETE" });
   if (!res.ok) throw new Error("Delete failed with status: " + res.status);
   return true;
 }
 
-// Normalize car object to avoid missing fields
+// Normalize car object to ensure all fields exist
 export function normalizeCar(car) {
   return {
     id: car.id,
