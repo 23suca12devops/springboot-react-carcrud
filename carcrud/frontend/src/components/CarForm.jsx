@@ -29,19 +29,23 @@ function CarForm({ onSave, editingCar }) {
     setCar(prev => ({ ...prev, [name]: value }));
   }
 
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const carToSend = {
-      brand: car.brand,
-      model: car.model,
-      year: Number.parseInt(car.year || 0, 10),
-      engine: car.engine,
-      price: Number.parseFloat(car.price || 0),
-      resalePrice: Number.parseFloat(car.resalePrice || 0)
+  
+    const carData = {
+      brand: brand || "",
+      model: model || "",
+      year: parseInt(year) || 0,
+      engine: engine || "",
+      price: parseFloat(price) || 0,
+      resalePrice: parseFloat(resalePrice) || 0
     };
-    onSave(carToSend);
-    setCar({ brand: "", model: "", year: "", engine: "", price: "", resalePrice: "" });
-  }
+  
+    onSave(carData);
+  
+    // Optional: reset form
+    setBrand(""); setModel(""); setYear(""); setEngine(""); setPrice(""); setResalePrice("");
+  };
 
   return (
     <form onSubmit={handleSubmit} style={styles.form}>
