@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import CarForm from "./CarForm";
-import { getCars, addCar, deleteCar } from "./carService";
+import CarForm from "./components/CarForm";
+import { getCars, addCar, deleteCar } from "./services/carService";
 
 function App() {
   const [cars, setCars] = useState([]);
