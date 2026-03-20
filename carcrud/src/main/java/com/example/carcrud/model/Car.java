@@ -1,10 +1,6 @@
 package com.example.carcrud.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Car {
@@ -17,19 +13,18 @@ public class Car {
     private String model;
 
     @Column(name = "model_year")
-    private Integer year;
+    private Integer year;      
 
     private String engine;
     private Double price;
-
+    
     @Column(name = "resale_price")
     private Double resalePrice;
 
-    // constructors, getters, setters ...
-
-    // Constructors
+    // Default constructor
     public Car() {}
 
+    // Constructor for creating new car
     public Car(String brand, String model, Integer year, String engine, Double price, Double resalePrice) {
         this.brand = brand;
         this.model = model;
@@ -39,7 +34,7 @@ public class Car {
         this.resalePrice = resalePrice;
     }
 
-    // Getters and Setters
+    // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

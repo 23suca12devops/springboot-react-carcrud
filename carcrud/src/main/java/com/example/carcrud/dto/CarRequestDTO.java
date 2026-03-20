@@ -4,10 +4,10 @@ public class CarRequestDTO {
 
     private String brand;
     private String model;
-    private Integer year;
+    private Integer year;          
     private String engine;
-    private Double price;
-    private Double resalePrice;
+    private Double price;          
+    private Double resalePrice;    
 
     public CarRequestDTO() {}
 

@@ -1,9 +1,10 @@
 package com.example.carcrud.controller;
 
 import java.util.List;
+
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.bind.annotation.*;
 import com.example.carcrud.dto.CarRequestDTO;
 import com.example.carcrud.dto.CarResponseDTO;
 import com.example.carcrud.model.Car;
@@ -38,6 +39,7 @@ public class CarController {
     // POST a new car
     @PostMapping
     public CarResponseDTO addCar(@RequestBody CarRequestDTO dto) {
+        System.out.println("Received DTO: " + dto.getBrand() + ", price=" + dto.getPrice() + ", resale=" + dto.getResalePrice());
         Car car = new Car(
             dto.getBrand(),
             dto.getModel(),
@@ -48,13 +50,13 @@ public class CarController {
         );
         Car saved = service.save(car);
         return new CarResponseDTO(
-            saved.getId(),
-            saved.getBrand(),
-            saved.getModel(),
-            saved.getYear(),
-            saved.getEngine(),
-            saved.getPrice(),
-            saved.getResalePrice()
+                saved.getId(),
+                saved.getBrand(),
+                saved.getModel(),
+                saved.getYear(),
+                saved.getEngine(),
+                saved.getPrice(),
+                saved.getResalePrice()
         );
     }
 
