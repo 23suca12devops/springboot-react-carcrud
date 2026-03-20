@@ -1,9 +1,7 @@
 // carService.js
 
-// Determine which backend to use based on frontend hostname
-const API_BASE = window.location.hostname.includes("azurewebsites.net")
-  ? "https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net/api/cars"
-  : "http://localhost:8080/api/cars"; // Keep this only for local dev if needed
+// Always use Azure backend for demo
+const API_BASE = "https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net/api/cars";
 
 console.log(`🚀 Frontend running on: ${window.location.hostname}`);
 console.log(`🔗 Using backend API: ${API_BASE}`);
