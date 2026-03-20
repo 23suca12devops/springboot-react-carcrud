@@ -9,7 +9,17 @@ public class CarRequestDTO {
     private double price;
     private double resalePrice;
 
-    // Getters and Setters
+    public CarRequestDTO() {}
+
+    public CarRequestDTO(String brand, String model, int year, String engine, double price, double resalePrice) {
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+        this.engine = engine;
+        this.price = price;
+        this.resalePrice = resalePrice;
+    }
+
     public String getBrand() { return brand; }
     public void setBrand(String brand) { this.brand = brand; }
 

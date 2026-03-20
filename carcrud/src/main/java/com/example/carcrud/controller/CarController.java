@@ -38,23 +38,23 @@ public class CarController {
     // POST a new car
     @PostMapping
     public CarResponseDTO addCar(@RequestBody CarRequestDTO dto) {
-        Car car = new Car();
-        car.setBrand(dto.getBrand());
-        car.setModel(dto.getModel());
-        car.setYear(dto.getYear());
-        car.setEngine(dto.getEngine());        
-        car.setPrice(dto.getPrice());          
-        car.setResalePrice(dto.getResalePrice()); 
-    
+        Car car = new Car(
+            dto.getBrand(),
+            dto.getModel(),
+            dto.getYear(),
+            dto.getEngine(),
+            dto.getPrice(),
+            dto.getResalePrice()
+        );
         Car saved = service.save(car);
         return new CarResponseDTO(
-                saved.getId(),
-                saved.getBrand(),
-                saved.getModel(),
-                saved.getYear(),
-                saved.getEngine(),
-                saved.getPrice(),
-                saved.getResalePrice()
+            saved.getId(),
+            saved.getBrand(),
+            saved.getModel(),
+            saved.getYear(),
+            saved.getEngine(),
+            saved.getPrice(),
+            saved.getResalePrice()
         );
     }
 
