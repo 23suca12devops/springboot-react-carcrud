@@ -21,4 +21,11 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with Maven
-        run: mvn clean test
+        working-directory: ./carcrud   # <-- important: points to your Spring Boot project folder
+        run: mvn clean package
+
+      - name: Upload backend artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: backend-jar
+          path: ./carcrud/target/*.jar
