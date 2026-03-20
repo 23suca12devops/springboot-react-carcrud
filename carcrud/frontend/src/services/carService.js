@@ -1,31 +1,26 @@
 // carService.js
 
-// Dynamically set API URL depending on frontend location
-const hostname = window.location.hostname;
-let API_BASE;
+// Determine which backend to use based on frontend hostname
+const API_BASE = window.location.hostname.includes("azurewebsites.net")
+  ? "https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net/api/cars"
+  : "http://localhost:8080/api/cars"; // Keep this only for local dev if needed
 
-if (hostname.includes("azurewebsites.net") || hostname.includes("vercel.app")) {
-  // Running on deployed frontend
-  API_BASE = "https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net/api/cars";
-} else {
-  // Running locally
-  API_BASE = "http://localhost:8080/api/cars";
-}
-
-console.log("API Base URL:", API_BASE);
+console.log(`🚀 Frontend running on: ${window.location.hostname}`);
+console.log(`🔗 Using backend API: ${API_BASE}`);
 
 // Fetch all cars
 export async function getCars() {
-  console.log("Fetching cars from:", API_BASE);
+  console.log("📡 Fetching cars from:", API_BASE);
   const res = await fetch(API_BASE);
   if (!res.ok) throw new Error("Fetch failed with status: " + res.status);
   const data = await res.json();
+  console.log("✅ Cars fetched:", data);
   return data.map(normalizeCar);
 }
 
-// Add a new car
+// Add a car
 export async function addCar(car) {
-  console.log("Adding car to:", API_BASE);
+  console.log("➕ Adding car to:", API_BASE, "Payload:", car);
   const res = await fetch(API_BASE, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -33,11 +28,13 @@ export async function addCar(car) {
   });
   if (!res.ok) throw new Error("Add failed with status: " + res.status);
   const saved = await res.json();
+  console.log("💾 Saved from backend:", saved);
   return normalizeCar(saved);
 }
 
 // Delete a car
 export async function deleteCar(id) {
+  console.log("❌ Deleting car ID:", id, "from:", API_BASE);
   const res = await fetch(`${API_BASE}/${id}`, { method: "DELETE" });
   if (!res.ok) throw new Error("Delete failed with status: " + res.status);
   return true;
