@@ -1,10 +1,10 @@
 // carService.js
 
-// Azure backend URL
+// Dynamically choose backend depending on frontend location
 const API_BASE = window.location.hostname.includes("azurewebsites.net")
-    ? "https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net/api/cars"
-    : "http://localhost:8080/api/cars";
-    
+  ? "https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net/api/cars" // Azure backend
+  : "http://localhost:8080/api/cars"; // Local backend
+
 console.log("API Base URL:", API_BASE);
 
 // Fetch all cars
@@ -16,9 +16,9 @@ export async function getCars() {
   return data.map(normalizeCar);
 }
 
-// Add a car
+// Add a new car
 export async function addCar(car) {
-  console.log("Adding car to:", API_BASE);
+  console.log("Adding car to:", API_BASE, "Payload:", car);
   const res = await fetch(API_BASE, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -26,6 +26,7 @@ export async function addCar(car) {
   });
   if (!res.ok) throw new Error("Add failed with status: " + res.status);
   const saved = await res.json();
+  console.log("Saved from backend:", saved);
   return normalizeCar(saved);
 }
 
