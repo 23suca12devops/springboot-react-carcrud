@@ -16,7 +16,8 @@ public class CorsConfig {
                 registry.addMapping("/**")
                         .allowedOriginPatterns(
                             "https://carcrud-app.vercel.app",
-                            "https://delightful-water-07fdd0c00.1.azurestaticapps.net"
+                            "https://delightful-water-07fdd0c00.1.azurestaticapps.net",
+                            "https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net"
                         )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
