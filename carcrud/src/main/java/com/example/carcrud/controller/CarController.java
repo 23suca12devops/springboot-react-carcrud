@@ -23,7 +23,13 @@ public class CarController {
     // GET all cars
     @GetMapping
     public List<CarResponseDTO> getCars() {
-        return service.getAll().stream()
+        List<Car> cars = service.getAll();
+        System.out.println("✅ getCars called - total cars: " + cars.size());
+        if (!cars.isEmpty()) {
+            Car first = cars.get(0);
+            System.out.println("First car: brand=" + first.getBrand() + ", engine=" + first.getEngine() + ", price=" + first.getPrice() + ", resalePrice=" + first.getResalePrice());
+        }
+        return cars.stream()
                 .map(car -> new CarResponseDTO(
                         car.getId(),
                         car.getBrand(),
