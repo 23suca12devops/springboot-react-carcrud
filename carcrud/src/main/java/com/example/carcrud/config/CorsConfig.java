@@ -15,8 +15,7 @@ public class CorsConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")  // apply to all endpoints
                         .allowedOriginPatterns(
-                            "https://delightful-water-07fdd0c00.1.azurestaticapps.net",
-                            "https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net"
+                            "https://delightful-water-07fdd0c00.1.azurestaticapps.net"
                         )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
