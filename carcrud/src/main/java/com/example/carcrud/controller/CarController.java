@@ -45,7 +45,7 @@ public class CarController {
     // POST a new car
     @PostMapping
     public CarResponseDTO addCar(@RequestBody CarRequestDTO dto) {
-        System.out.println("Received DTO: " + dto.getBrand() + ", price=" + dto.getPrice() + ", resale=" + dto.getResalePrice());
+        System.out.println("🔍 RECEIVED DTO: brand=" + dto.getBrand() + ", model=" + dto.getModel() + ", year=" + dto.getYear() + ", engine=" + dto.getEngine() + ", price=" + dto.getPrice() + ", resalePrice=" + dto.getResalePrice());
         Car car = new Car(
             dto.getBrand(),
             dto.getModel(),
@@ -55,6 +55,7 @@ public class CarController {
             dto.getResalePrice()
         );
         Car saved = service.save(car);
+        System.out.println("💾 SAVED CAR: id=" + saved.getId() + ", brand=" + saved.getBrand() + ", engine=" + saved.getEngine() + ", price=" + saved.getPrice() + ", resalePrice=" + saved.getResalePrice());
         return new CarResponseDTO(
                 saved.getId(),
                 saved.getBrand(),
