@@ -36,7 +36,7 @@ public class CarController {
     }
 
     // POST a new car
-    @PostMapping
+    @PostMapping("/api/cars")
     public CarResponseDTO addCar(@RequestBody CarRequestDTO dto) {
         Car car = new Car(
             dto.getBrand(),

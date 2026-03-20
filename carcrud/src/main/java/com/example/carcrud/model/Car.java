@@ -20,17 +20,17 @@ public class Car {
     private int year;
 
     private String engine;
-    private double price;
+    private Double price;
 
     @Column(name = "resale_price")
-    private double resalePrice;
+    private Double resalePrice;
 
     // constructors, getters, setters ...
 
     // Constructors
     public Car() {}
 
-    public Car(String brand, String model, int year, String engine, double price, double resalePrice) {
+    public Car(String brand, String model, int year, String engine, Double price, Double resalePrice) {
         this.brand = brand;
         this.model = model;
         this.year = year;
@@ -56,8 +56,8 @@ public class Car {
     public void setEngine(String engine) { this.engine = engine; }
 
     public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
+    public void setPrice(Double price) { this.price = price; }
 
     public double getResalePrice() { return resalePrice; }
-    public void setResalePrice(double resalePrice) { this.resalePrice = resalePrice; }
+    public void setResalePrice(Double resalePrice) { this.resalePrice = resalePrice; }
 }

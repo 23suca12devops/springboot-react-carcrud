@@ -6,12 +6,12 @@ public class CarRequestDTO {
     private String model;
     private int year;
     private String engine;
-    private double price;
-    private double resalePrice;
+    private Double price;
+    private Double resalePrice;
 
     public CarRequestDTO() {}
 
-    public CarRequestDTO(String brand, String model, int year, String engine, double price, double resalePrice) {
+    public CarRequestDTO(String brand, String model, int year, String engine, Double price, Double resalePrice) {
         this.brand = brand;
         this.model = model;
         this.year = year;
