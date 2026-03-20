@@ -17,7 +17,7 @@ public class Car {
     private String model;
 
     @Column(name = "model_year")
-    private int year;
+    private Integer year;
 
     private String engine;
     private Double price;
@@ -30,7 +30,7 @@ public class Car {
     // Constructors
     public Car() {}
 
-    public Car(String brand, String model, int year, String engine, Double price, Double resalePrice) {
+    public Car(String brand, String model, Integer year, String engine, Double price, Double resalePrice) {
         this.brand = brand;
         this.model = model;
         this.year = year;
@@ -49,15 +49,15 @@ public class Car {
     public String getModel() { return model; }
     public void setModel(String model) { this.model = model; }
 
-    public int getYear() { return year; }
-    public void setYear(int year) { this.year = year; }
+    public Integer getYear() { return year; }
+    public void setYear(Integer year) { this.year = year; }
 
     public String getEngine() { return engine; }
     public void setEngine(String engine) { this.engine = engine; }
 
-    public double getPrice() { return price; }
+    public Double getPrice() { return price; }
     public void setPrice(Double price) { this.price = price; }
 
-    public double getResalePrice() { return resalePrice; }
+    public Double getResalePrice() { return resalePrice; }
     public void setResalePrice(Double resalePrice) { this.resalePrice = resalePrice; }
 }
