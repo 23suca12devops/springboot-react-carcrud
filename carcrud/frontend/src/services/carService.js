@@ -1,6 +1,16 @@
-// carService.js (Azure-only)
-// Hardcoded Azure backend URL
-const API_BASE = "https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net/api/cars";
+// carService.js
+
+// Dynamically set API URL depending on frontend location
+const hostname = window.location.hostname;
+let API_BASE;
+
+if (hostname.includes("azurewebsites.net") || hostname.includes("vercel.app")) {
+  // Running on deployed frontend
+  API_BASE = "https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net/api/cars";
+} else {
+  // Running locally
+  API_BASE = "http://localhost:8080/api/cars";
+}
 
 console.log("API Base URL:", API_BASE);
 
@@ -33,7 +43,7 @@ export async function deleteCar(id) {
   return true;
 }
 
-// Normalize car object to ensure all fields exist
+// Normalize car object
 export function normalizeCar(car) {
   return {
     id: car.id,
