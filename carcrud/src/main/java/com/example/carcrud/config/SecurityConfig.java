@@ -22,6 +22,7 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .formLogin(login -> login.disable())
             .httpBasic(basic -> basic.disable())
+            .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
             .authorizeHttpRequests(auth -> auth
                 .anyRequest().permitAll()
             );
