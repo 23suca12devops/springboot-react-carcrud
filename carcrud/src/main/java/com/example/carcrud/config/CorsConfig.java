@@ -13,12 +13,8 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")  // allow all endpoints
-                        .allowedOriginPatterns(
-                            "https://carcrud-app.vercel.app",
-                            "https://delightful-water-07fdd0c00.1.azurestaticapps.net",
-                            "https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net"
-                        )
+                registry.addMapping("/**")  // all endpoints
+                        .allowedOriginPatterns("*")  // allow any origin (for testing)
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
