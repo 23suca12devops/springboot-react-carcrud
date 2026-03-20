@@ -17,10 +17,10 @@ function CarForm({ onSave, editingCar }) {
             setCar({
                 brand: editingCar.brand ?? "",
                 model: editingCar.model ?? "",
-                year: editingCar.year ? editingCar.year.toString() : "",
+                year: editingCar?.year?.toString() ?? "",
                 engine: editingCar.engine ?? "",
-                price: editingCar.price ? editingCar.price.toString() : "",
-                resalePrice: editingCar.resalePrice ? editingCar.resalePrice.toString() : ""
+                price: editingCar?.price?.toString() ?? "",
+                resalePrice: editingCar?.resalePrice?.toString() ?? ""
             });
         }
     }, [editingCar]);
@@ -29,15 +29,15 @@ function CarForm({ onSave, editingCar }) {
         e.preventDefault();
     
         const carToSend = {
-            brand: car.brand || "",
-            model: car.model || "",
+            brand: car.brand,
+            model: car.model,
             year: Number.parseInt(car.year || 0, 10),
-            engine: car.engine || "",
-            price: Number.parseFloat(car.price) || 0,
-            resalePrice: Number.parseFloat(car.resalePrice) || 0
+            engine: car.engine,
+            price: Number.parseFloat(car.price || 0),
+            resalePrice: Number.parseFloat(car.resalePrice || 0)
         };
     
-        console.log("Sending car:", carToSend); // <-- verify payload
+        console.log("Sending car:", carToSend);
     
         let savedCar;
         if (editingCar) {
@@ -47,7 +47,11 @@ function CarForm({ onSave, editingCar }) {
         }
     
         onSave(savedCar);
-        setCar({ brand: "", model: "", year: "", engine: "", price: "", resalePrice: "" });
+    
+        // Only reset form if we are **adding a new car**
+        if (!editingCar) {
+            setCar({ brand: "", model: "", year: "", engine: "", price: "", resalePrice: "" });
+        }
     }
 
     return (

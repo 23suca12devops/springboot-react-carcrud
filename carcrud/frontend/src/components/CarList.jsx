@@ -15,7 +15,7 @@ function CarList({ cars, onDelete, onUpdate }) {
                             editingCar={car}
                             onSave={(updatedCar) => {
                                 onUpdate(updatedCar);
-                                setEditingCarId(null);
+                                setEditingCarId(null); // now safe, no extra blank car
                             }}
                         />
                     ) : (

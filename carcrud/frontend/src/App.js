@@ -17,9 +17,9 @@ function App() {
 
     function handleSave(car) {
         setCars(prev => {
-            const exists = prev.find(c => c.id === car.id);
-            if (exists) {
-                return prev.map(c => c.id === car.id ? car : c);
+            // Update if ID exists, otherwise add new car
+            if (car.id) {
+                return prev.map(c => c.id === car.id ? { ...c, ...car } : c);
             } else {
                 return [...prev, car];
             }

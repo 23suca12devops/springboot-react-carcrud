@@ -66,7 +66,6 @@ public class CarController {
         car.setResalePrice(dto.getResalePrice());
     
         Car saved = service.save(car);
-    
         return new CarResponseDTO(
                 saved.getId(),
                 saved.getBrand(),
