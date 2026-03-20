@@ -1,10 +1,9 @@
-name: Full CI/CD (Backend + Frontend)
+name: Full Continuous Deployment (Backend + Frontend)
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  push:           # triggers on every push to any branch
+    branches: ["*"]
+  workflow_dispatch: # allows manual trigger if needed
 
 jobs:
   backend-deploy:
@@ -24,18 +23,18 @@ jobs:
         working-directory: ./carcrud
         run: mvn clean package
 
-      - name: Deploy backend to Azure App Service
+      - name: Deploy backend to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: carcrud
+          app-name: carcrud-fge8hdgyfkbufcg5  # your Azure backend app name
           publish-profile: ${{ secrets.AZURE_BACKEND_PUBLISH_PROFILE }}
           package: ./carcrud/target/*.jar
 
       - name: Wait for backend to be live
         run: |
           echo "Waiting for backend to start..."
-          for i in {1..15}; do
-            status=$(curl -s -o /dev/null -w "%{http_code}" https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net/api/cars)
+          for i in {1..20}; do
+            status=$(curl -s -o /dev/null -w "%{http_code}" ${{ secrets.AZURE_BACKEND_URL }})
             if [ "$status" -eq 200 ]; then
               echo "Backend is live!"
               exit 0
@@ -63,9 +62,11 @@ jobs:
         working-directory: ./carcrud/frontend
         run: npm install
 
-      - name: Build frontend
+      - name: Inject backend URL and build frontend
         working-directory: ./carcrud/frontend
-        run: npm run build
+        run: |
+          echo "REACT_APP_API_URL=${{ secrets.AZURE_BACKEND_URL }}" > .env.production
+          npm run build
 
       - name: Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
