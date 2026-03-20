@@ -1,8 +1,10 @@
 // carService.js
 
 // Azure backend URL
-const API_BASE = "https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net/api/cars";
-
+const API_BASE = window.location.hostname.includes("azurewebsites.net")
+    ? "https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net/api/cars"
+    : "http://localhost:8080/api/cars";
+    
 console.log("API Base URL:", API_BASE);
 
 // Fetch all cars
