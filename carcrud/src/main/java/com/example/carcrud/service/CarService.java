@@ -18,20 +18,15 @@ public class CarService {
         return repo.findAll();
     }
 
-    public Car save(Car car) {
-        return repo.save(car);
+    public Car getById(Long id) {
+        return repo.findById(id).orElse(null);
     }
 
-    public Car update(Long id, Car car) {
-        car.setId(id);
+    public Car save(Car car) {
         return repo.save(car);
     }
 
     public void delete(Long id) {
         repo.deleteById(id);
-    }
-
-    public Car getById(Long id) {
-        return repo.findById(id).orElse(null);
     }
 }

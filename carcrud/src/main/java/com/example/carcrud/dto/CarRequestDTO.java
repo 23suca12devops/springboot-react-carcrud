@@ -9,7 +9,6 @@ public class CarRequestDTO {
     private double price;
     private double resalePrice;
 
-    // Constructors
     public CarRequestDTO() {}
 
     public CarRequestDTO(String brand, String model, int year, String engine, double price, double resalePrice) {
@@ -21,7 +20,7 @@ public class CarRequestDTO {
         this.resalePrice = resalePrice;
     }
 
-    // Getters and setters
+    // Getters & Setters
     public String getBrand() { return brand; }
     public void setBrand(String brand) { this.brand = brand; }
 

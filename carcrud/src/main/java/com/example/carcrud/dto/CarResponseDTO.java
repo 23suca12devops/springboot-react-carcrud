@@ -7,12 +7,12 @@ public class CarResponseDTO {
     private String model;
     private int year;
     private String engine;
-    private Double price;
-    private Double resalePrice;
+    private double price;
+    private double resalePrice;
 
     public CarResponseDTO() {}
 
-    public CarResponseDTO(Long id, String brand, String model, int year, String engine, Double price, Double resalePrice) {
+    public CarResponseDTO(Long id, String brand, String model, int year, String engine, double price, double resalePrice) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -22,7 +22,7 @@ public class CarResponseDTO {
         this.resalePrice = resalePrice;
     }
 
-    // getters and setters
+    // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
