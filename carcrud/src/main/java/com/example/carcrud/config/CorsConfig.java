@@ -14,7 +14,11 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOriginPatterns("http://localhost:3000", "https://carcrud-app.vercel.app", "https://delightful-water-07fdd0c00.1.azurestaticapps.net/")
+                        .allowedOriginPatterns(
+                            "http://localhost:3000",
+                            "https://carcrud-app.vercel.app",
+                            "https://delightful-water-07fdd0c00.1.azurestaticapps.net"
+                        )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
