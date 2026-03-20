@@ -5,14 +5,14 @@ public class CarResponseDTO {
     private Long id;
     private String brand;
     private String model;
-    private int year;
+    private Integer year;
     private String engine;
-    private double price;
-    private double resalePrice;
+    private Double price;
+    private Double resalePrice;
 
     public CarResponseDTO() {}
 
-    public CarResponseDTO(Long id, String brand, String model, int year, String engine, double price, double resalePrice) {
+    public CarResponseDTO(Long id, String brand, String model, Integer year, String engine, Double price, Double resalePrice) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -32,15 +32,15 @@ public class CarResponseDTO {
     public String getModel() { return model; }
     public void setModel(String model) { this.model = model; }
 
-    public int getYear() { return year; }
-    public void setYear(int year) { this.year = year; }
+    public Integer getYear() { return year; }
+    public void setYear(Integer year) { this.year = year; }
 
     public String getEngine() { return engine; }
     public void setEngine(String engine) { this.engine = engine; }
 
-    public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
+    public Double getPrice() { return price; }
+    public void setPrice(Double price) { this.price = price; }
 
-    public double getResalePrice() { return resalePrice; }
-    public void setResalePrice(double resalePrice) { this.resalePrice = resalePrice; }
+    public Double getResalePrice() { return resalePrice; }
+    public void setResalePrice(Double resalePrice) { this.resalePrice = resalePrice; }
 }
