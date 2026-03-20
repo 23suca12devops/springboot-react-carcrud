@@ -2,7 +2,10 @@
 
 // Dynamically choose backend depending on frontend location
 const isAzure = globalThis.location.hostname.includes("azurewebsites.net");
-const API_BASE = isAzure
+// carService.js
+
+// If running on Azure frontend, point to Azure backend
+const API_BASE = window.location.hostname.includes("azurewebsites.net")
   ? "https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net/api/cars"
   : "http://localhost:8080/api/cars";
 
