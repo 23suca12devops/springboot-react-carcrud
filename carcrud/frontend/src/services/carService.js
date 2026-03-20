@@ -1,15 +1,9 @@
 // carService.js
 
-// Dynamically choose backend depending on frontend location
-const isAzure = globalThis.location.hostname.includes("azurewebsites.net");
-// carService.js
+// Hardcode Azure backend for demo
+const API_BASE = "https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net/api/cars";
 
-// If running on Azure frontend, point to Azure backend
-const API_BASE = window.location.hostname.includes("azurewebsites.net")
-  ? "https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net/api/cars"
-  : "http://localhost:8080/api/cars";
-
-console.log("API Base URL:", API_BASE);
+console.log("API Base URL (Azure only):", API_BASE);
 
 // Fetch all cars
 export async function getCars() {

@@ -15,7 +15,6 @@ public class CorsConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOriginPatterns(
-                            "http://localhost:3000",
                             "https://carcrud-app.vercel.app",
                             "https://delightful-water-07fdd0c00.1.azurestaticapps.net"
                         )
