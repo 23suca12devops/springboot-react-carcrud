@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
   const url =
-    'https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net' + req.url;
+    'https://carcrud-fge8hdgyfkbufcg5.centralindia-01.azurewebsites.net/api/cars' + req.url;
   
   const response = await fetch(url, {
     method: req.method,
