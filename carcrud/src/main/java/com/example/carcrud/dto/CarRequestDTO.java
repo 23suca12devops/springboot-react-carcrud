@@ -9,7 +9,20 @@ public class CarRequestDTO {
     private double price;
     private double resalePrice;
 
-    // Getters & Setters
+    // Default constructor (required for Jackson)
+    public CarRequestDTO() {}
+
+    // All-args constructor (optional, but handy)
+    public CarRequestDTO(String brand, String model, int year, String engine, double price, double resalePrice) {
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+        this.engine = engine;
+        this.price = price;
+        this.resalePrice = resalePrice;
+    }
+
+    // Getters and setters for all fields
     public String getBrand() { return brand; }
     public void setBrand(String brand) { this.brand = brand; }
 
@@ -27,4 +40,16 @@ public class CarRequestDTO {
 
     public double getResalePrice() { return resalePrice; }
     public void setResalePrice(double resalePrice) { this.resalePrice = resalePrice; }
+
+    @Override
+    public String toString() {
+        return "CarRequestDTO{" +
+                "brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", year=" + year +
+                ", engine='" + engine + '\'' +
+                ", price=" + price +
+                ", resalePrice=" + resalePrice +
+                '}';
+    }
 }
