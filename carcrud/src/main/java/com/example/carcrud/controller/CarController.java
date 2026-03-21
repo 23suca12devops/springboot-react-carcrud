@@ -21,7 +21,7 @@ public class CarController {
 
     @GetMapping("/ping")
     public String ping() {
-        return "PING OK";
+        return "NEW DEPLOYMENT 123 🚀";
     }
 
     @GetMapping("/ping-test")
