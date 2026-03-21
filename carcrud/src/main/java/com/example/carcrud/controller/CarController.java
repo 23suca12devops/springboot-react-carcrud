@@ -19,6 +19,11 @@ public class CarController {
         this.service = service;
     }
 
+    @GetMapping("/ping")
+    public String ping() {
+        return "CI/CD WORKING 🚀";
+    }
+
     // GET all cars
     @GetMapping
     public List<Car> getCars() {
