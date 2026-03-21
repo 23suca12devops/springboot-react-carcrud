@@ -5,8 +5,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
-import com.example.carcrud.dto.CarRequestDTO;
-import com.example.carcrud.dto.CarResponseDTO;
+
 import com.example.carcrud.model.Car;
 import com.example.carcrud.service.CarService;
 
@@ -22,77 +21,47 @@ public class CarController {
 
     // GET all cars
     @GetMapping
-    public List<CarResponseDTO> getCars() {
+    public List<Car> getCars() {
         List<Car> cars = service.getAll();
         System.out.println("✅ getCars called - total cars: " + cars.size());
-        if (!cars.isEmpty()) {
-            Car first = cars.get(0);
-            System.out.println("First car: brand=" + first.getBrand() + ", engine=" + first.getEngine() + ", price=" + first.getPrice() + ", resalePrice=" + first.getResalePrice());
-        }
-        return cars.stream()
-                .map(car -> new CarResponseDTO(
-                        car.getId(),
-                        car.getBrand(),
-                        car.getModel(),
-                        car.getYear(),
-                        car.getEngine(),
-                        car.getPrice(),
-                        car.getResalePrice()
-                ))
-                .toList();
+        return cars;
     }
 
     // POST a new car
     @PostMapping
-    public CarResponseDTO addCar(@RequestBody CarRequestDTO dto) {
-        System.out.println("🔍 RECEIVED DTO: brand=" + dto.getBrand() + ", model=" + dto.getModel() + ", year=" + dto.getYear() + ", engine=" + dto.getEngine() + ", price=" + dto.getPrice() + ", resalePrice=" + dto.getResalePrice());
-        Car car = new Car(
-            dto.getBrand(),
-            dto.getModel(),
-            dto.getYear(),
-            dto.getEngine(),
-            dto.getPrice(),
-            dto.getResalePrice()
-        );
+    public Car addCar(@RequestBody Car car) {
+        System.out.println("🔍 RECEIVED CAR: brand=" + car.getBrand()
+                + ", engine=" + car.getEngine()
+                + ", price=" + car.getPrice()
+                + ", resalePrice=" + car.getResalePrice());
+
         Car saved = service.save(car);
-        System.out.println("💾 SAVED CAR: id=" + saved.getId() + ", brand=" + saved.getBrand() + ", engine=" + saved.getEngine() + ", price=" + saved.getPrice() + ", resalePrice=" + saved.getResalePrice());
-        return new CarResponseDTO(
-                saved.getId(),
-                saved.getBrand(),
-                saved.getModel(),
-                saved.getYear(),
-                saved.getEngine(),
-                saved.getPrice(),
-                saved.getResalePrice()
-        );
+
+        System.out.println("💾 SAVED CAR: id=" + saved.getId()
+                + ", brand=" + saved.getBrand()
+                + ", engine=" + saved.getEngine()
+                + ", price=" + saved.getPrice()
+                + ", resalePrice=" + saved.getResalePrice());
+
+        return saved;
     }
 
     // PUT to update an existing car
     @PutMapping("/{id}")
-    public CarResponseDTO updateCar(@PathVariable Long id, @RequestBody CarRequestDTO dto) {
+    public Car updateCar(@PathVariable Long id, @RequestBody Car car) {
         Car existingCar = service.getById(id);
         if (existingCar == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Car not found with ID: " + id);
         }
 
-        existingCar.setBrand(dto.getBrand());
-        existingCar.setModel(dto.getModel());
-        existingCar.setYear(dto.getYear());
-        existingCar.setEngine(dto.getEngine());
-        existingCar.setPrice(dto.getPrice());
-        existingCar.setResalePrice(dto.getResalePrice());
+        existingCar.setBrand(car.getBrand());
+        existingCar.setModel(car.getModel());
+        existingCar.setYear(car.getYear());
+        existingCar.setEngine(car.getEngine());
+        existingCar.setPrice(car.getPrice());
+        existingCar.setResalePrice(car.getResalePrice());
 
-        Car updated = service.save(existingCar);
-
-        return new CarResponseDTO(
-                updated.getId(),
-                updated.getBrand(),
-                updated.getModel(),
-                updated.getYear(),
-                updated.getEngine(),
-                updated.getPrice(),
-                updated.getResalePrice()
-        );
+        return service.save(existingCar);
     }
 
     // DELETE a car
