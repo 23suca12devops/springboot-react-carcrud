@@ -1,5 +1,8 @@
 // carService.js
-const BASE_URL = process.env.REACT_APP_API_URL;
+const BASE_URL =
+  process.env.REACT_APP_API_URL ||
+  process.env.REACT_APP_FALLBACK_API_URL ||
+  "http://localhost:8080/api/cars";
 
 console.log("API Base URL:", BASE_URL);
 
@@ -15,17 +18,20 @@ export async function getCars() {
 // Add a car
 export async function addCar(car) {
   console.log("Adding car to:", BASE_URL);
+  const payload = {
+    brand: car.brand,
+    model: car.model,
+    year: car.year,
+    engine: car.engine,
+    price: car.price,
+    resalePrice: car.resalePrice
+  };
+  console.log("POST payload:", payload);
+
   const res = await fetch(BASE_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      brand: car.brand,
-      model: car.model,
-      year: car.year,
-      engine: car.engine,
-      price: car.price,
-      resalePrice: car.resalePrice
-    })
+    body: JSON.stringify(payload)
   });
   if (!res.ok) throw new Error("Add failed with status: " + res.status);
   const saved = await res.json();
