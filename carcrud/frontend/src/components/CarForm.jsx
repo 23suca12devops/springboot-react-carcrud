@@ -10,27 +10,28 @@ export default function CarForm({ onSave }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+  
     if (!brand || !model || !year) {
-      alert("Please fill Brand, Model and Year properly");
+      alert("Please fill Brand, Model and Year");
       return;
     }
-
-    // Prepare full payload
+  
     const carData = {
-      brand: brand || "",
-      model: model || "",
+      brand,
+      model,
       year: parseInt(year),
       engine: engine || "",
-      price: parseFloat(price) || 0,
-      resalePrice: parseFloat(resalePrice) || 0
+      price: price ? parseFloat(price) : 0,
+      resalePrice: resalePrice ? parseFloat(resalePrice) : 0
     };
-
+  
+    console.log("SENDING:", carData);
+  
     onSave(carData);
-
-    // Reset form
+  
     setBrand("");
     setModel("");
-    setYear("");    
+    setYear("");
     setEngine("");
     setPrice("");
     setResalePrice("");
