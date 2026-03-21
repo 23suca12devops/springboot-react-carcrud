@@ -10,12 +10,16 @@ export default function CarForm({ onSave }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!brand || !model || !year) {
+      alert("Please fill Brand, Model and Year properly");
+      return;
+    }
 
     // Prepare full payload
     const carData = {
       brand: brand || "",
       model: model || "",
-      year: parseInt(year) || 0,
+      year: parseInt(year),
       engine: engine || "",
       price: parseFloat(price) || 0,
       resalePrice: parseFloat(resalePrice) || 0
@@ -26,7 +30,7 @@ export default function CarForm({ onSave }) {
     // Reset form
     setBrand("");
     setModel("");
-    setYear("");
+    setYear("");    
     setEngine("");
     setPrice("");
     setResalePrice("");
@@ -34,9 +38,9 @@ export default function CarForm({ onSave }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input placeholder="Brand" value={brand} onChange={(e) => setBrand(e.target.value)} />
-      <input placeholder="Model" value={model} onChange={(e) => setModel(e.target.value)} />
-      <input placeholder="Year" type="number" value={year} onChange={(e) => setYear(e.target.value)} />
+      <input placeholder="Brand" required value={brand} onChange={(e) => setBrand(e.target.value)} />
+      <input placeholder="Model" required value={model} onChange={(e) => setModel(e.target.value)} />
+      <input placeholder="Year" type="number" required value={year} onChange={(e) => setYear(e.target.value)} />
       <input placeholder="Engine" value={engine} onChange={(e) => setEngine(e.target.value)} />
       <input placeholder="Price" type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
       <input placeholder="Resale Price" type="number" value={resalePrice} onChange={(e) => setResalePrice(e.target.value)} />

@@ -66,7 +66,8 @@ public class CarController {
 
     // DELETE a car
     @DeleteMapping("/{id}")
-    public void deleteCar(@PathVariable Long id) {
+    public String deleteCar(@PathVariable Long id) {
         service.delete(id);
+        return "Deleted successfully";
     }
 }
