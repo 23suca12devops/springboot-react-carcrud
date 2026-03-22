@@ -1,0 +1,15 @@
+Right command to initialise/record into sonar:
+mvn clean verify sonar:sonar -Dsonar.projectKey=carcrud-backend -Dsonar.organization=meow-programmer -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=<token>
+
+You can run your Spring Boot backend to make sure it serves endpoints:
+
+mvn spring-boot:run
+
+
+Open in browser: to see the H2 database
+
+Or check http://localhost:8080/api/cars if you already have the CRUD endpoints
+
+
+Frontend:
+npx sonar-scanner -Dsonar.projectKey=carcrud-frontend -Dsonar.organization=meow-programmer -Dsonar.sources=src -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=<token>

@@ -1,0 +1,3 @@
+1. Simple syntax errors in carService.js declared unused declaration 
+2. Network error occurences cannot assign localhost url and deployed url together
+3. Trying to fix SonarQube workflow

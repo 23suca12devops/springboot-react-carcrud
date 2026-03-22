@@ -1,0 +1,8 @@
+1. Stop running containers
+docker-compose down
+
+2. Build and start containers again
+docker-compose up --build
+
+3. Default JDBC url:
+jdbc:h2:mem:testdb

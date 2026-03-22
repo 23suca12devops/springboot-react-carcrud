@@ -1,0 +1,20 @@
+roll no: 23suca12
+name: Nishanth Subramanian
+
+Project Name: Car CRUD Management System
+
+Description:
+This project is a Car Brands Management System built with Spring Boot for the backend and React for the frontend. It allows users to add, view, update, and delete car entries, providing a simple full-stack demonstration of CRUD operations. The system uses an H2 in-memory database for local storage and is structured to support future deployment with a persistent database.
+
+Key Features:
+
+RESTful API endpoints for managing car entries (GET, POST, PUT, DELETE)
+
+Frontend interface in React for easy interaction with the backend
+
+CORS configuration to support local development and potential deployment
+
+Local deployment tested and fully functional
+
+Deployment Notes:
+While the system runs smoothly on localhost, domain deployment was not completed. The main issue preventing live deployment was network errors caused by CORS restrictions and domain configuration conflicts. Multiple attempts to configure the backend for both local and Vercel domains simultaneously caused runtime errors in React. To ensure the project functions properly for evaluation, local deployment remains the supported method, using http://localhost:8080 for the backend.

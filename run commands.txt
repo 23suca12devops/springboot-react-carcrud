@@ -1,0 +1,60 @@
+1️⃣ Backend (Spring Boot)
+
+Open CMD in carcrud/ folder.
+
+Run:
+
+mvn spring-boot:run
+
+
+Check that it’s running: http://localhost:8080/api/cars (or whatever CRUD endpoints you made).
+
+Optionally open H2 console: http://localhost:8080/h2-console → jdbc:h2:mem:testdb → username: sa → no password.
+
+💡 This shows CRUD works and your backend is alive.
+
+2️⃣ Frontend (React)
+
+Open CMD in frontend/ folder.
+
+Run:
+
+npm install
+npm start
+
+
+Your browser should open http://localhost:3000 showing your React UI.
+
+Try creating, updating, deleting a car—demonstrate CRUD working live.
+
+3️⃣ SonarCloud Dashboard
+
+Go to SonarCloud
+ → Login → Your org → Project carcrud-backend.
+
+Show:
+
+Bugs ✅
+
+Code smells ✅
+
+Duplications ✅
+
+Coverage/test results ✅
+
+Optional: do the same for frontend if you ran the one-liner scan I gave you.
+
+4️⃣ Docker (Optional)
+
+Only needed if prof wants the dockerized version.
+
+Make sure Docker Desktop is open, then:
+
+docker build -t carcrud-backend .
+docker run -p 8080:8080 carcrud-backend
+
+
+Same for frontend:
+
+docker build -t carcrud-frontend .
+docker run -p 3000:3000 carcrud-frontend

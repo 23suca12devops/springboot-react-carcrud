@@ -1,0 +1,19 @@
+services:
+  backend:
+    build:
+      context: ./carcrud
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - h2data:/data
+
+  frontend:
+    build:
+      context: ./carcrud/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+
+volumes:
+  h2data:

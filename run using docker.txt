@@ -1,0 +1,14 @@
+How To Run It Properly
+
+From the folder where that Dockerfile exists (inside carcrud):
+
+Build
+docker build -t car-crud-fullstack .
+
+Run
+docker run -p 8080:8080 car-crud-fullstack
+
+
+Then open:
+
+http://localhost:8080

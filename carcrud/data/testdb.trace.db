@@ -1,0 +1,6 @@
+2026-02-07 14:02:45.897518+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CAR" not found (this database is empty); SQL statement:
+select c1_0.id,c1_0.brand,c1_0.engine,c1_0.model,c1_0.price,c1_0.resale_price,c1_0.model_year from car c1_0 [42104-240]
+2026-02-07 14:02:52.335423+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CAR" not found (this database is empty); SQL statement:
+select c1_0.id,c1_0.brand,c1_0.engine,c1_0.model,c1_0.price,c1_0.resale_price,c1_0.model_year from car c1_0 [42104-240]
