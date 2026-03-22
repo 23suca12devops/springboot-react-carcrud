@@ -4,8 +4,11 @@ on:
   push:
     branches:
       - aiswarya
-      - main
   workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   deploy-backend:
@@ -25,9 +28,25 @@ jobs:
         working-directory: ./carcrud
         run: mvn clean package -DskipTests
 
-      - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v3
+      - name: Deploy to Azure Web App (Publish Profile)
+        if: ${{ secrets.AZURE_BACKEND_PUBLISH_PROFILE != '' }}
+        uses: azure/webapps-deploy@v2
         with:
           app-name: carcrud-fge8hdgyfkbufcg5
           publish-profile: ${{ secrets.AZURE_BACKEND_PUBLISH_PROFILE }}
+          package: ./carcrud/target/*.jar
+
+      - name: Login to Azure via OIDC
+        if: ${{ secrets.AZURE_BACKEND_PUBLISH_PROFILE == '' }}
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_1352E3127BDB44CFA6BC1C4D7AA254F8 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_17F1ED55899D471FBC0E1B3BBBFE178E }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_E8501145E6654775A1673A6C19DDCBC4 }}
+
+      - name: Deploy to Azure Web App
+        if: ${{ secrets.AZURE_BACKEND_PUBLISH_PROFILE == '' }}
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: carcrud-fge8hdgyfkbufcg5
           package: ./carcrud/target/*.jar
