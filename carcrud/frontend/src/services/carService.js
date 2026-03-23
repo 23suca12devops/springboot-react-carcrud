@@ -38,6 +38,26 @@ export async function addCar(car) {
   return normalizeCar(saved);
 }
 
+// Update a car
+export async function updateCar(id, car) {
+  const payload = {
+    brand: car.brand,
+    model: car.model,
+    year: car.year,
+    engine: car.engine,
+    price: car.price,
+    resalePrice: car.resalePrice
+  };
+  const res = await fetch(`${BASE_URL}/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) throw new Error("Update failed with status: " + res.status);
+  const updated = await res.json();
+  return normalizeCar(updated);
+}
+
 // Delete a car
 export async function deleteCar(id) {
   const res = await fetch(`${BASE_URL}/${id}`, { method: "DELETE" });

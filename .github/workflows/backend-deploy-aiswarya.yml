@@ -1,0 +1,42 @@
+name: Deploy Backend (Aiswarya)
+
+on:
+  push:
+    branches:
+      - aiswarya
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build Spring Boot JAR
+        working-directory: ./carcrud
+        run: mvn clean package -DskipTests
+
+      - name: Login to Azure via OIDC
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_1352E3127BDB44CFA6BC1C4D7AA254F8 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_17F1ED55899D471FBC0E1B3BBBFE178E }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_E8501145E6654775A1673A6C19DDCBC4 }}
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: carcrud-fge8hdgyfkbufcg5
+          package: ./carcrud/target/*.jar
