@@ -23,6 +23,9 @@ jobs:
         working-directory: ./carcrud
         run: mvn clean package
 
+      - name: List build files
+        run: ls -R ./carcrud/target
+
       - name: Deploy backend to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
