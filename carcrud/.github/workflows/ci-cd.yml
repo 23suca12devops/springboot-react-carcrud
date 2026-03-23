@@ -1,9 +1,9 @@
 name: Full Continuous Deployment (Backend + Frontend)
 
 on:
-  push:           # triggers on every push to any branch
+  push:
     branches: ["*"]
-  workflow_dispatch: # allows manual trigger if needed
+  workflow_dispatch:
 
 jobs:
   backend-deploy:
@@ -26,23 +26,32 @@ jobs:
       - name: Deploy backend to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: carcrud-fge8hdgyfkbufcg5  # your Azure backend app name
+          app-name: carcrud-fge8hdgyfkbufcg5
           publish-profile: ${{ secrets.AZURE_BACKEND_PUBLISH_PROFILE }}
           package: ./carcrud/target/*.jar
 
+      - name: Confirm Backend Deployment
+        if: success()
+        run: |
+          echo "=================================="
+          echo "🚀 BACKEND DEPLOYED SUCCESSFULLY"
+          echo "=================================="
+          echo "🌐 URL: ${{ secrets.AZURE_BACKEND_URL }}"
+          echo "=================================="
+
       - name: Wait for backend to be live
         run: |
-          echo "Waiting for backend to start..."
+          echo "🔍 Checking if backend is live..."
           for i in {1..20}; do
             status=$(curl -s -o /dev/null -w "%{http_code}" ${{ secrets.AZURE_BACKEND_URL }})
             if [ "$status" -eq 200 ]; then
-              echo "Backend is live!"
+              echo "✅ Backend is LIVE and responding!"
               exit 0
             fi
-            echo "Backend not ready yet... retrying in 10s"
+            echo "⏳ Backend not ready yet... retrying in 10s"
             sleep 10
           done
-          echo "Backend did not start in time!"
+          echo "❌ Backend did not start in time!"
           exit 1
 
   frontend-deploy:
