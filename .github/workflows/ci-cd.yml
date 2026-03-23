@@ -31,7 +31,7 @@ jobs:
         with:
           app-name: carcrud
           publish-profile: ${{ secrets.AZURE_BACKEND_PUBLISH_PROFILE }}
-          package: ./carcrud/target/*.jar
+          package: ./carcrud/target/carcrud-0.0.1-SNAPSHOT.jar
 
       - name: Confirm Backend Deployment
         if: success()
