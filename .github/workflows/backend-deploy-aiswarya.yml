@@ -1,9 +1,9 @@
-name: Deploy Backend (Aiswarya)
+name: Deploy Backend
 
 on:
   push:
     branches:
-      - aiswarya
+      - main
   workflow_dispatch:
 
 permissions:
