@@ -24,7 +24,7 @@ public class Car {
     // Default constructor
     public Car() {}
 
-    // Constructor for creating new car
+     // Constructor for creating new car
     public Car(String brand, String model, Integer year, String engine, Double price, Double resalePrice) {
         this.brand = brand;
         this.model = model;
