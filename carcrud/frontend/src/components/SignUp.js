@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 
+const CARS_API_URL =
+  process.env.REACT_APP_API_URL ||
+  process.env.REACT_APP_FALLBACK_API_URL;
+
 const SIGNUP_URL =
   process.env.REACT_APP_SIGNUP_URL ||
   process.env.REACT_APP_API_SIGNUP_URL ||
+  (CARS_API_URL ? CARS_API_URL.replace(/\/cars\/?$/, "/signup") : null) ||
   "http://localhost:8080/api/signup";
 
 export default function SignUp() {
